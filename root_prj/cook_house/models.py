@@ -4,17 +4,9 @@ from django.db import models
 from django.utils.translation import gettext_lazy as gtl
 
 
+DEFAULT_CONTENT = "Soon!"
+
 # Create your models here.
-
-class Recipe(models.Model):
-    title = models.CharField(max_length=100)
-    review = models.TextField(blank=False, null=False,db_comment="отсекаем на 100 знаков" )
-    algorythm = models.TextField(blank=False, null=False, max_length=1000)
-    time_estimate = models.IntegerField(blank=False,)
-    preview = models.ImageField()
-    author = models.ForeignKey('Users', editable=False)
-
-
 class CategoryRecipe(models.Model):
     class Categories(models.TextChoices):
         SNACKS = "snacks", gtl("Салаты и Закуски")
@@ -24,10 +16,23 @@ class CategoryRecipe(models.Model):
         DESSERTS = 'desserts', gtl("Десерты")
         DRINKS = 'drinks', gtl("Безалкогольные напитки")
         POISON = 'alco', gtl("Пойло")
+        SELECT_LATER = 'not_set', gtl(DEFAULT_CONTENT)
 
     title = models.CharField(choices=Categories, max_length=20)
     default_image = models.ImageField(null=True)
 
     def __str__(self):
         return self.get_title_display()
+
+
+class Recipe(models.Model):
+    title = models.CharField(max_length=100,default=DEFAULT_CONTENT)
+    review = models.TextField(blank=False, null=False, db_comment="отсекаем на 100 знаков",default=DEFAULT_CONTENT)
+    algorythm = models.TextField(blank=False, null=False, max_length=1000, default=DEFAULT_CONTENT)
+    time_estimate = models.IntegerField(blank=False, default=5)
+    category = models.ForeignKey('CategoryRecipe', on_delete=models.DO_NOTHING,
+                                 default=CategoryRecipe.Categories.SELECT_LATER)
+    preview = models.ImageField(upload_to="dishes", null=True)
+    author = models.CharField(max_length=100, default="Some Cook!")
+
 # class
