@@ -9,4 +9,9 @@ class CategoryRecipeAdmin(admin.ModelAdmin):
     list_display = ("pk","title")
     ordering = ["pk","title"]
     list_filter = ["title"]
+    pass
 
+
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    pass
