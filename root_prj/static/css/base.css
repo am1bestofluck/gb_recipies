@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: rgb(51, 42, 42);
+    color: wheat;
+}
+
+a {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+@font-face {
+    font-family: "mood";
+    src: url("../fonts/Night_Morning.otf");
+    font-size: 50px;
+}
+
+.header--base {
+    font-family: "mood";
+    padding-top: 70px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    text-transform: capitalize;
+}
+
+.header__item {
+    font-family: inherit;
+    background-color: transparent;
+}
+
+.header__item--centered {
+    font-weight: 600;
+    font-size: 35px;
+    color: blanchedalmond;
+}
+
+.showcase_banner {
+    width: 100%;
+    min-height: 200px;
+    background-repeat: no-repeat;
+    background-position: 0%;
+    background-size: cover;
+    background-image: url("../img/diemfkdie.webp");
+}
+
+.hello_block {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 50px;
+}
+
+.footer--dev_info {
+    padding-left: 3svw;
+    padding-right: 3svw;
+    padding-top: 30px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.dev_info--item {
+    color: #878177;
+}
+
+.footer--info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+}

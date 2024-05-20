@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block page_title %} #todo {% endblock %} </title>
 </head>
+
 <body>
-from parent
-{% block content %}{% endblock %}
+    <header>
+        <nav class="header--base">
+            <div class="header__item"><a href="#">about us</a></div>
+            <div class="header__item"><a href="#">Master-classes </a></div>
+            <div class="header__item header__item--centered"><a href="#"> Horns and hooves</a></div>
+            <div class="header__item"><a href="#">Gallery</a></div>
+            <div class="header__item"><a href="#">Contacts </a></div>
+        </nav>
+    </header>
+    <div class="showcase_banner"></div>
+    <section class="hello_block"> <a href="#"> Hello, #todo. Auth?</a></section>
+    <section class="main"> {% block page_header_content %} #todo {% endblock %}
+    </section>
+    <footer>
+        <div class="footer--subscribe">
+            <div class="subscribe--hint"></div>
+            <div class="subscribe--input">
+                <div class="form"><input type="text" name="" id=""></div><input type="submit" value=""></div>
+        </div>
+        <div class="footer--info">
+            <div class="info--logo"><img src="" alt="80085"></div>
+            <div class="info--phone">Наш телефон: 123-456-789</div>
+            <div class="info--path">
+                <span class="path--ask">Где нас найти?</span>
+                <span class="path--response">Мы там, где хорошо!</span>
+            </div>
+        </div>
+        <div class="footer--dev_info">
+            <div class="dev_info--item">ЗАО "Рогов И Копытина"</div>
+            <div class="dev_info--item">Powered by FreeTimeEnjoyerDev</div>
+        </div>
+    </footer>
 </body>
+
 </html>
