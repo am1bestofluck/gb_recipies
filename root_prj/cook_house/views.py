@@ -1,3 +1,5 @@
+import pdb
+
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 
@@ -6,7 +8,8 @@ from django.views.generic import TemplateView, View
 
 class IndexView(TemplateView):
     """5 случайных рецептов"""
-    template_name = "cook_house/index.html"
+    template_name = "cook_house/main.html"
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -15,7 +18,7 @@ class IndexView(TemplateView):
 
 class ItemView(TemplateView):
     """один рецепт, детально"""
-    template_name = "cook_house/item.html"
+    template_name = "cook_house/templates/cook_house/base.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,3 +55,12 @@ class RegUser(View):
 
     def post(self):
         pass
+
+
+class TestBase(TemplateView):
+    template_name = "cook_house/base.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # pdb.set_trace()
+        return context

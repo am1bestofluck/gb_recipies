@@ -27,6 +27,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '192.168.1.164',
+    '192.168.1.167',
+    '192.168.56.1',
     'am1bestofluck.pythonanywhere.com',
     '127.0.0.1',
 ]
@@ -115,8 +117,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

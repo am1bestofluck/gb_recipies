@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/css/base.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> {% block page_title %} #todo {% endblock %} </title>
 </head>
@@ -20,7 +21,7 @@
     </header>
     <div class="showcase_banner"></div>
     <section class="hello_block"> <a href="#"> Hello, #todo. Auth?</a></section>
-    <section class="main"> {% block page_header_content %} #todo {% endblock %}
+    <section class="main"> {% block page_content %} #todo {% endblock %}
     </section>
     <footer>
         <div class="footer--subscribe">
@@ -29,7 +30,7 @@
                 <div class="form"><input type="text" name="" id=""></div><input type="submit" value=""></div>
         </div>
         <div class="footer--info">
-            <div class="footer--cell info--logo"><img class="info--logo_pic" src="../static/img/logo.svg" alt="лого рогов и копыт :( :)"></div>
+            <div class="footer--cell info--logo"><img class="info--logo_pic" src="{% static 'img/logo.svg' %}" alt="лого рогов и копыт :( :)"></div>
             <div class="footer--cell footer--cell_allign_right">Наш телефон<br>123-456-789</div>
             <div class="footer--cell footer--cell_allign_right">
                 <span class="path--hint">Где нас найти?<br></span>
