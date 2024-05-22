@@ -19,7 +19,7 @@ a {
 
 .header--base {
     font-family: "mood";
-    padding-top: 70px;
+    padding-top: 35px;
     padding-bottom: 15px;
     display: flex;
     justify-content: space-evenly;
@@ -67,6 +67,18 @@ a {
 
 .footer--info {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.info--logo {
+    grid-row: 1/-1;
+    display: flex;
+    justify-content: center;
+}
+
+.footer--cell_allign_right {
+    justify-self: right;
+    text-align: right;
+    padding-right: 1svw;
 }
