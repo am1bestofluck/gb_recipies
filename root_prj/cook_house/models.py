@@ -10,6 +10,8 @@ DEFAULT_CONTENT = "Soon!"
 
 # Create your models here.
 class CategoryRecipe(models.Model):
+    IMAGE_SIZE = 640, 360,
+
     class Categories(models.TextChoices):
         SNACKS = "snacks", gtl("Салаты и Закуски")
         FIRST = 'first_dishes', gtl("Супы")
@@ -25,12 +27,14 @@ class CategoryRecipe(models.Model):
         title: str
         img: Path
 
+
     @staticmethod
     def resize():
-        """Масштабирует дефолтные картинки до 640*360""""
-        to_resize: Image = Image(pic_path)
+        """Масштабирует дефолтные картинки до 640*360"""
         for i in Path.iterdir("static\\img\\default_categories"):
-            print(i)
+            a = Image.open(i)
+            a = a.resize(IMAGE_SIZE)
+            a.save(i)
         return True
 
     default_pictures: dict[Categories, Path] = {
@@ -70,3 +74,5 @@ class Recipe(models.Model):
     author = models.CharField(max_length=100, default="Some Cook!")
 
 # class
+if __name__ == '__main__':
+    CategoryRecipe.resize()

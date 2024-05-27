@@ -14,13 +14,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         existing_categories: QuerySet = CategoryRecipe.objects.all()
-        pdb.set_trace()
+        # pdb.set_trace()
         if existing_categories:
             self.stdout.write(
                 "Можно создавать категории по умолчанию только если их вообще нет\n")
             return None
         else:
-            CategoryRecipe.resize()
+            # CategoryRecipe.resize()
             pdb.set_trace(header="!")
             for new_item in CategoryRecipe.Categories.__members__.items():
+                pdb.set_trace(header="forge_categories")
                 CategoryRecipe.objects.create()
