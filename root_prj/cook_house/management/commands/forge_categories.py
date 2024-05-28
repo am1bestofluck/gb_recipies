@@ -21,7 +21,7 @@ class Command(BaseCommand):
             return None
         else:
             # CategoryRecipe.resize()
-            pdb.set_trace(header="!")
+            # pdb.set_trace(header="!")
             for new_item in CategoryRecipe.Categories.__members__.items():
                 pdb.set_trace(header="forge_categories")
-                CategoryRecipe.objects.create()
+                CategoryRecipe.objects.create(title=new_item[1],default_image=CategoryRecipe.default_pictures[new_item[1]])

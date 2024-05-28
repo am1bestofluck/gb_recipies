@@ -38,16 +38,16 @@ class CategoryRecipe(models.Model):
         return True
 
     default_pictures: dict[Categories, Path] = {
-        Categories.SNACKS: Path("static\\img\\default_categories\\snacks.jpg"),
-        Categories.FIRST: Path("static\\img\\default_categories\\first.jpg"),
-        Categories.MAIN: Path("static\\img\\default_categories\\main.jpg"),
-        Categories.BAKING: Path("static\\img\\default_categories\\baking.jpg"),
+        Categories.SNACKS: Path("static\\img\\default_category_pics\\snacks.jpg").as_posix(),
+        Categories.FIRST: Path("static\\img\\default_category_pics\\first.jpg").as_posix(),
+        Categories.MAIN: Path("static\\img\\default_category_pics\\main.jpg").as_posix(),
+        Categories.BAKING: Path("static\\img\\default_category_pics\\baking.jpg").as_posix(),
         Categories.DESSERTS: Path(
-            "static\\img\\default_categories\\desserts.jpg"),
-        Categories.DRINKS: Path("static\\img\\default_categories\\drinks.jpg"),
-        Categories.POISON: Path("static\\img\\default_categories\\poison.jpg"),
+            "static\\img\\default_category_pics\\desserts.jpg").as_posix(),
+        Categories.DRINKS: Path("static\\img\\default_category_pics\\drinks.jpg").as_posix(),
+        Categories.POISON: Path("static\\img\\default_category_pics\\poison.jpg").as_posix(),
         Categories.SELECT_LATER: Path(
-            "static\\img\\default_categories\\noway.jpg"),
+            "static\\img\\default_category_pics\\noway.jpg").as_posix(),
 
     }
 
