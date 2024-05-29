@@ -5,6 +5,13 @@ from django.utils.translation import gettext_lazy as gtl
 from pathlib import Path
 from PIL import Image
 
+from django.contrib.auth.models import AbstractUser
+
+
+class User(AbstractUser):
+    pass
+
+
 DEFAULT_CONTENT = "Soon!"
 
 
@@ -27,7 +34,6 @@ class CategoryRecipe(models.Model):
         title: str
         img: Path
 
-
     @staticmethod
     def resize():
         """Масштабирует дефолтные картинки до 640*360"""
@@ -38,14 +44,20 @@ class CategoryRecipe(models.Model):
         return True
 
     default_pictures: dict[Categories, Path] = {
-        Categories.SNACKS: Path("static\\img\\default_category_pics\\snacks.jpg").as_posix(),
-        Categories.FIRST: Path("static\\img\\default_category_pics\\first.jpg").as_posix(),
-        Categories.MAIN: Path("static\\img\\default_category_pics\\main.jpg").as_posix(),
-        Categories.BAKING: Path("static\\img\\default_category_pics\\baking.jpg").as_posix(),
+        Categories.SNACKS: Path(
+            "static\\img\\default_category_pics\\snacks.jpg").as_posix(),
+        Categories.FIRST: Path(
+            "static\\img\\default_category_pics\\first.jpg").as_posix(),
+        Categories.MAIN: Path(
+            "static\\img\\default_category_pics\\main.jpg").as_posix(),
+        Categories.BAKING: Path(
+            "static\\img\\default_category_pics\\baking.jpg").as_posix(),
         Categories.DESSERTS: Path(
             "static\\img\\default_category_pics\\desserts.jpg").as_posix(),
-        Categories.DRINKS: Path("static\\img\\default_category_pics\\drinks.jpg").as_posix(),
-        Categories.POISON: Path("static\\img\\default_category_pics\\poison.jpg").as_posix(),
+        Categories.DRINKS: Path(
+            "static\\img\\default_category_pics\\drinks.jpg").as_posix(),
+        Categories.POISON: Path(
+            "static\\img\\default_category_pics\\poison.jpg").as_posix(),
         Categories.SELECT_LATER: Path(
             "static\\img\\default_category_pics\\noway.jpg").as_posix(),
 
@@ -70,8 +82,10 @@ class Recipe(models.Model):
     time_estimate = models.IntegerField(blank=False, default=5)
     category = models.ForeignKey('CategoryRecipe', on_delete=models.DO_NOTHING,
                                  default=1)
-    preview = models.ImageField(upload_to="dishes", null=True, default=None)
-    author = models.CharField(max_length=100, default="Some Cook!")
+    preview = models.ImageField(upload_to="flow/dishes_previews/", null=True, default=None)
+    author = models.ForeignKey(to=User,
+                               on_delete=models.CASCADE, )
+
 
 # class
 if __name__ == '__main__':
