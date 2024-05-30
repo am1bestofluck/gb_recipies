@@ -1,18 +1,33 @@
 import pdb
+from random import sample
 
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
+from django.db.models import QuerySet, Max
+
+try:
+    from .models import Recipe
+except ImportError:
+    from cook_house.models import Recipe
 
 
 # Create your views here.
 
 class IndexView(TemplateView):
+    sample_size = 5
     """5 случайных рецептов"""
     template_name = "cook_house/main.html"
 
-
     def get_context_data(self, **kwargs):
+        all_recipies: QuerySet = Recipe.objects
+        ids = list(all_recipies.values_list('id', flat=True).all())
+        test_5 = sample(ids, k=self.sample_size)
+        serve_this = []
+        for i in test_5:
+            serve_this.append(all_recipies.filter(pk=i)[0])
         context = super().get_context_data(**kwargs)
+        context['items'] = serve_this
+        pdb.set_trace()
         return context
 
 

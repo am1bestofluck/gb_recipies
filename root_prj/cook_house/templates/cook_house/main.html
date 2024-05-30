@@ -1,3 +1,13 @@
 {% extends 'cook_house/base.html' %}
-{% block page_title %} 5 random recipies {% endblock %}
-{% block page_content %} new exciting stuff! {% endblock %}
+{% block page_title %} wooow {% endblock %}
+{% block page_content %}
+
+{% for o in items %}
+<div class="itm--category">{{o.category_name}}</div>
+<div class="itm"> {{ o.title }} </div>
+<div class="itm--preview"> {{o.preview}}</div>
+<div class="itm--estimate">Минут: {{o.time_estimate}}</div>
+<div class="itm--review">{{o.review}}</div>
+<div class="itm--further"><a href="#">Подробнее</a></div>
+{% endfor %}
+{% endblock %}

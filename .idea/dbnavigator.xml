@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -20,14 +20,19 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="ed56f00d-e5e3-45f6-b779-a54a96ecd2d0" object-ref="schemas/db/tables/cook_house_user" />
+      <object connection-id="ed56f00d-e5e3-45f6-b779-a54a96ecd2d0" object-ref="schemas/db/tables/cook_house_recipe" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ed56f00d-e5e3-45f6-b779-a54a96ecd2d0" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="ed56f00d-e5e3-45f6-b779-a54a96ecd2d0" dataset="db.sqlite_sequence" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="ed56f00d-e5e3-45f6-b779-a54a96ecd2d0" dataset="db.cook_house_recipe" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="ed56f00d-e5e3-45f6-b779-a54a96ecd2d0" dataset="db.cook_house_categoryrecipe" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="ed56f00d-e5e3-45f6-b779-a54a96ecd2d0" dataset="db.cook_house_user" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
