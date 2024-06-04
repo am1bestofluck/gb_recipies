@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main_recipies.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> {% block page_title %} #todo {% endblock %} </title>
 </head>
@@ -20,7 +21,7 @@
         </nav>
     </header>
     <div class="showcase_banner"></div>
-    <section class="hello_block"> <a href="#"> Hello, #todo. Auth?</a></section>
+    <section class="hello_block"> <a href=" {% url 'new_cook' %}"> Hello, #todo. Auth?</a></section>
     <section class="main"> {% block page_content %} #todo {% endblock %}
     </section>
     <footer>
