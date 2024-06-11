@@ -5,17 +5,20 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from django.db.models import QuerySet, Max
 from django.views.generic.edit import FormView
+
 try:
-    from .models import Recipe
+    from .models import Recipe, User
     from .forms import RegUserForm
 except ImportError:
-    from cook_house.models import Recipe
+    from cook_house.models import Recipe, User
+
     from cook_house.forms import RegUserForm
+
 
 # Create your views here.
 
 class IndexView(TemplateView):
-    sample_size = 5
+    sample_max_size = 5
     """5 случайных рецептов"""
     template_name = "cook_house/main.html"
 
@@ -23,9 +26,10 @@ class IndexView(TemplateView):
         all_recipies: QuerySet = Recipe.objects
         ids = list(all_recipies.values_list('id', flat=True).all())
         context = super().get_context_data(**kwargs)
-        # pdb.set_trace()
+        actual_sample = self.sample_max_size if len(
+            ids) > self.sample_max_size else len(ids)
         try:
-            test_5 = sample(ids, k=self.sample_size)
+            test_5 = sample(ids, k=actual_sample)
         except ValueError:
             return context
         serve_this = []
@@ -70,17 +74,30 @@ class RecipeViewRUD(View):
 
 
 class RegUser(FormView):
-    """Форма авторизации"""
-    form_class = RegForm
+    """Форма регистрации"""
+    form_class = RegUserForm
     template_name = "cook_house/register.html"
 
     def get(self, request, *args, **kwargs):
-        pdb.set_trace()
-        return request
+        form = self.form_class()
+        return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
-        pdb.set_trace()
-        return request
+
+        form = RegUserForm(request.POST)
+        if form.is_valid():
+            pdb.set_trace(header="valid")
+            form.validate()
+            items = form.clean()
+
+        else:
+            error_hint = ""
+            pdb.set_trace(header="invalid")
+            form = self.form_class()
+            for i in form.errors:
+                print(i)
+            return render(request, self.template_name,
+                          {"form": form, "error_hint": error_hint})
 
 
 class TestBase(TemplateView):
