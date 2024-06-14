@@ -1,18 +1,20 @@
 import pdb
-from random import sample
 
-from django.shortcuts import render
+from random import sample
+from django.http import HttpRequest
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
 from django.db.models import QuerySet, Max
 from django.views.generic.edit import FormView
+from django.core.exceptions import ValidationError
+from django.contrib.auth import authenticate, login
 
 try:
     from .models import Recipe, User
-    from .forms import RegUserForm
+    from .forms import RegUserForm, AuthUserForm
 except ImportError:
     from cook_house.models import Recipe, User
-
-    from cook_house.forms import RegUserForm
+    from cook_house.forms import RegUserForm, AuthUserForm
 
 
 # Create your views here.
@@ -84,7 +86,7 @@ class RegUser(FormView):
 
     def post(self, request, *args, **kwargs):
 
-        form = RegUserForm(request.POST)
+        form = self.form_class(request.POST)
         if form.is_valid():
             pdb.set_trace(header="valid")
             form.validate()
@@ -108,3 +110,32 @@ class TestBase(TemplateView):
         context = super().get_context_data(**kwargs)
         # pdb.set_trace()
         return context
+
+
+class AuthUser(FormView):
+    """форма авторизации"""
+    form_class = AuthUserForm
+    template_name = "cook_house/auth.html"
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request: HttpRequest, *args, **kwargs):
+
+        form = self.form_class(request.POST)
+        try:
+            form.validate()
+        except ValidationError as e:
+            form.errors['login'] = e.message
+            return render(request, self.template_name, {"form": form})
+        if form.is_valid():
+            user = authenticate(username=form.cleaned_data['login'],
+                                password=form.cleaned_data['pwd_first'])
+            login(request, user)
+            pdb.set_trace(header="valid")
+            items = form.clean()
+
+            return redirect('index')
+        else:
+            return render(request, self.template_name, {"form": form})

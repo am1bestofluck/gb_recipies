@@ -1,1 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'cook_house/base.html' %}
+{% block page_title %} Авторизоваться: Horns And Hooves {% endblock %}
+{% block page_content %}
+<div class="error_messages">{{ form.error_messages }}</div>
+<form action="auth" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+<div class="new_cook"><div class="new_cook--offer">Ещё не зарегистрированы?</div>
+<div class="new_cook--link"><a href="{% url 'new_cook' %}"> Создать аккаунт</a></div></div>{% endblock %}

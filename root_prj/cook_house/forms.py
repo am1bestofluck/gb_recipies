@@ -2,6 +2,13 @@ import pdb
 
 from django import forms
 from django.core import validators
+from django.core.exceptions import ValidationError
+from django.contrib.auth import authenticate,login
+
+try:
+    from .models import User
+except ImportError:
+    from cookhouse.models import User
 
 
 class RecipeForm(forms.Form):
@@ -34,10 +41,15 @@ class RegUserForm(forms.Form):
         widget=forms.PasswordInput)
 
     def validate(self):
-        pdb.set_trace(header="check items")
+        pdb.set_trace(header="check items#reg")
 
 
 class AuthUserForm(forms.Form):
-    login = forms.CharField(widget=forms.TextInput)
-    pwd_first = forms.CharField(widget=forms.PasswordInput)
-    pwd_second = forms.CharField(widget=forms.PasswordInput)
+    login = forms.CharField(widget=forms.TextInput, label="Логин/почта")
+    pwd_first = forms.CharField(widget=forms.PasswordInput, label="Пароль")
+
+    def validate(self):
+        user = authenticate(username=self.data['login'],
+                            password=self.data['pwd_first'])
+        if not user:
+            raise ValidationError("Пользователь не обнаружен")
