@@ -21,7 +21,7 @@
         </nav>
     </header>
     <div class="showcase_banner"></div>
-    <section class="hello_block"> {% if session.user  %}  Привет! Выйти? {% else %} <a href=" {% url 'auth' %}"> Войти в аккаунт </a> {% endif %} </section>
+    <section class="hello_block"> {% if user  %}  Привет, {{ user }}! <a href = "{% url 'logout' %}" >Выйти?</a> {% else %} <a href=" {% url 'auth' %}"> Войти в аккаунт </a> {% endif %} </section>
     <section class="main"> {% block page_content %} #todo {% endblock %}
     </section>
     <footer>

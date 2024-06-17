@@ -6,6 +6,8 @@
 }
 
 .item--table {
+    padding-left: 50px;
+    padding-right: 50px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(5, 1fr);
@@ -14,4 +16,9 @@
 .itm--preview {
     grid-column: 2;
     grid-row: 1/-1;
+}
+
+.form_main {
+    border: 2px solid white;
+    border-radius: 5px;
 }

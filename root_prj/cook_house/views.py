@@ -3,7 +3,7 @@ import pdb
 from random import sample
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, RedirectView
 from django.db.models import QuerySet, Max
 from django.views.generic.edit import FormView
 from django.core.exceptions import ValidationError
@@ -88,9 +88,16 @@ class RegUser(FormView):
 
         form = self.form_class(request.POST)
         if form.is_valid():
-            pdb.set_trace(header="valid")
             form.validate()
             items = form.clean()
+            User.objects.create_user(username=items['login'],
+                                     email=items['mail'],
+                                     password=items['pwd_first'],
+                                     first_name=items['first_name'],
+                                     last_name=items['last_name'],
+                                     )
+            pdb.set_trace(header="cool")
+            return redirect('auth')
 
         else:
             error_hint = ""
@@ -135,7 +142,22 @@ class AuthUser(FormView):
             login(request, user)
             pdb.set_trace(header="valid")
             items = form.clean()
+            usr: User = User.objects.filter(username=items['login'])[0]
+            name = f"{usr.first_name} {usr.last_name}"
+            response = redirect('index')
+            response.set_cookie('user', name)
 
-            return redirect('index')
+            return response
         else:
             return render(request, self.template_name, {"form": form})
+
+
+class LogoutUser(View):
+    url = "index"
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        response = redirect(self.url)
+        pdb.set_trace(header="rdr")
+        if response.COOKIES['user']:
+            response.COOKIES.pop('user')
+        return response

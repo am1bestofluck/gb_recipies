@@ -28,7 +28,7 @@ class Command(BaseCommand):
                     [lorem_ipsum.sentence().capitalize() for i in range(2)])
                 time_estimate = choice(range(10, 91, 1))
                 preview = choice([i for i in Path(
-                    r"C:\reps\gb_recipies\root_prj\static\img\default_pics_for_randomizer").iterdir()]).as_posix()
+                    r"C:\reps\gb_recipies\root_prj\cook_house\static\img\default_pics_for_randomizer").iterdir()]).as_posix()
                 users:QuerySet = User.objects.all()
                 author = choice(users)
                 Recipe.objects.create(title=title, review=review,
