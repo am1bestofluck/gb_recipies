@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, View, RedirectView
 from django.db.models import QuerySet, Max
 from django.views.generic.edit import FormView
 from django.core.exceptions import ValidationError
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 try:
     from .models import Recipe, User
@@ -40,7 +40,7 @@ class IndexView(TemplateView):
             serve_this.append(all_recipies.filter(pk=i)[0])
 
         context['items'] = serve_this
-        # pdb.set_trace()
+        # pdb.set_trace(header="users")
         return context
 
 
@@ -54,12 +54,11 @@ class ItemView(TemplateView):
 
 
 class CreateView(TemplateView):
-    template_name = "cook_house/recipe_create.html"
+    template_name = "cook_house/add_edit_recipe.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
 
 class RecipeViewRUD(View):
     """Добавляем/редактируем рецепт """
@@ -96,12 +95,12 @@ class RegUser(FormView):
                                      first_name=items['first_name'],
                                      last_name=items['last_name'],
                                      )
-            pdb.set_trace(header="cool")
+            # pdb.set_trace(header="cool")
             return redirect('auth')
 
         else:
             error_hint = ""
-            pdb.set_trace(header="invalid")
+            # pdb.set_trace(header="invalid")
             form = self.form_class()
             for i in form.errors:
                 print(i)
@@ -140,7 +139,7 @@ class AuthUser(FormView):
             user = authenticate(username=form.cleaned_data['login'],
                                 password=form.cleaned_data['pwd_first'])
             login(request, user)
-            pdb.set_trace(header="valid")
+            # pdb.set_trace(header="valid")
             items = form.clean()
             usr: User = User.objects.filter(username=items['login'])[0]
             name = f"{usr.first_name} {usr.last_name}"
@@ -156,8 +155,5 @@ class LogoutUser(View):
     url = "index"
 
     def get(self, request: HttpRequest, *args, **kwargs):
-        response = redirect(self.url)
-        pdb.set_trace(header="rdr")
-        if response.COOKIES['user']:
-            response.COOKIES.pop('user')
-        return response
+        logout(request)
+        return redirect(self.url)

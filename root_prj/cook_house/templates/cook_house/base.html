@@ -11,38 +11,59 @@
 </head>
 
 <body>
-    <header>
-        <nav class="header--base">
-            <div class="header__item"><a href="#">about us</a></div>
-            <div class="header__item"><a href="#">Master-classes </a></div>
-            <div class="header__item header__item--centered"><a href="#"> Horns and hooves</a></div>
-            <div class="header__item"><a href="#">Gallery</a></div>
-            <div class="header__item"><a href="#">Contacts </a></div>
-        </nav>
-    </header>
-    <div class="showcase_banner"></div>
-    <section class="hello_block"> {% if user  %}  Привет, {{ user }}! <a href = "{% url 'logout' %}" >Выйти?</a> {% else %} <a href=" {% url 'auth' %}"> Войти в аккаунт </a> {% endif %} </section>
-    <section class="main"> {% block page_content %} #todo {% endblock %}
-    </section>
-    <footer>
-        <div class="footer--subscribe">
-            <div class="subscribe--hint"></div>
-            <div class="subscribe--input">
-                <div class="form"><input type="text" name="" id=""></div><input type="submit" value=""></div>
+<header>
+    <nav class="header--base">
+        <div class="header__item"><a href="#">about us</a></div>
+        <div class="header__item"><a href="#">Master-classes </a></div>
+        <div class="header__item header__item--centered"><a href="#"> Horns and
+            hooves</a></div>
+        <div class="header__item"><a href="#">Gallery</a></div>
+        <div class="header__item"><a href="#">Contacts </a></div>
+    </nav>
+</header>
+
+<div class="showcase_banner"></div>
+
+<section class="hello_block"> {% block header_panel %}{% if user.id != None %}
+    <div class="hello_block--buttons"><a href="{% url 'create_r' %}"
+                                         class="add_recipe">Добавить
+        рецепт!</a>
+    <a href="#" class="my_recipes">Мои рецепты</a></div>
+    <div class="hello_block--info">Привет, {{ user.first_name.title }}
+        {{user.last_name.title }}! <a
+                href="{% url 'logout' %}">Выйти?</a></div>
+    {% else %}
+    <div class="hello_block--justified-right"><a
+            href=" {% url 'auth' %}"> Войти в аккаунт </a> {% endif %}
+    </div>
+    {% endblock %}
+</section>
+<section class="main"> {% block page_content %} #todo {% endblock %}
+</section>
+<footer>
+    <div class="footer--subscribe">
+        <div class="subscribe--hint"></div>
+        <div class="subscribe--input">
+            <div class="form"><input type="text" name="" id=""></div>
+            <input type="submit" value=""></div>
+    </div>
+    <div class="footer--info">
+        <div class="footer--cell info--logo"><img class="info--logo_pic"
+                                                  src="{% static 'img/logo.svg' %}"
+                                                  alt="лого рогов и копыт :( :)">
         </div>
-        <div class="footer--info">
-            <div class="footer--cell info--logo"><img class="info--logo_pic" src="{% static 'img/logo.svg' %}" alt="лого рогов и копыт :( :)"></div>
-            <div class="footer--cell footer--cell_allign_right">Наш телефон<br>123-456-789</div>
-            <div class="footer--cell footer--cell_allign_right">
-                <span class="path--hint">Где нас найти?<br></span>
-                <span class="path--response">Улица Путь Кшарашкина, 2/3</span>
-            </div>
+        <div class="footer--cell footer--cell_allign_right">Наш телефон<br>123-456-789
         </div>
-        <div class="footer--dev_info">
-            <div class="dev_info--item">ЗАО "Рогов И Копытина"</div>
-            <div class="dev_info--item">Powered by FreeTimeEnjoyerDev</div>
+        <div class="footer--cell footer--cell_allign_right">
+            <span class="path--hint">Где нас найти?<br></span>
+            <span class="path--response">Улица Путь Кшарашкина, 2/3</span>
         </div>
-    </footer>
+    </div>
+    <div class="footer--dev_info">
+        <div class="dev_info--item">ЗАО "Рогов И Копытина"</div>
+        <div class="dev_info--item">Powered by FreeTimeEnjoyerDev</div>
+    </div>
+</footer>
 </body>
 
 </html>
