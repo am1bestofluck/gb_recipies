@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate, login
 
 try:
-    from .models import User
+    from .models import User, CategoryRecipe
 except ImportError:
     from cookhouse.models import User
 
@@ -22,6 +22,7 @@ class RecipeForm(forms.Form):
     time_estimate = forms.IntegerField(min_value=5, max_value=300,
                                        step_size=5, widget=forms.NumberInput(
             attrs={'class': 'form_main'}))
+    category = forms.ChoiceField(choices=CategoryRecipe.Categories.choices)
     preview = forms.ImageField(required=False, widget=forms.FileInput(
         attrs={'class': 'form_main'}))
 

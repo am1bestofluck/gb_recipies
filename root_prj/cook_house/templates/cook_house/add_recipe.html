@@ -4,5 +4,14 @@
     <div class="hello_block--info">Привет, {{ user.first_name.title }} {{user.last_name.title }}! <a
                 href="{% url 'logout' %}">Выйти?</a></div>
     {% else %} <a
-            href=" {% url 'auth' %}"> Войти в аккаунт </a> {% endif %}
+            href="{% url 'auth' %}"> Войти в аккаунт </a> {% endif %}
     {% endblock %}
+
+{% block page_content %}
+<div class="error_messages">{{ form.error_messages }}</div>
+<form action="create_r" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Добавить">
+</form>
+{% endblock %}

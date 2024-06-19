@@ -1,7 +1,7 @@
 import pdb
 
 from random import sample
-from django.http import HttpRequest
+from django.http import HttpRequest,HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View, RedirectView
 from django.db.models import QuerySet, Max
@@ -10,8 +10,8 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate, login, logout
 
 try:
-    from .models import Recipe, User
-    from .forms import RegUserForm, AuthUserForm
+    from .models import Recipe, User, CategoryRecipe
+    from .forms import RegUserForm, AuthUserForm, RecipeForm
 except ImportError:
     from cook_house.models import Recipe, User
     from cook_house.forms import RegUserForm, AuthUserForm
@@ -44,6 +44,19 @@ class IndexView(TemplateView):
         return context
 
 
+class PersonOwnRecipies(TemplateView):
+    template_name = "cook_house/proprietory.html"
+
+    def get_context_data(self, **kwargs):
+        user_ = self.request.user.id
+        all_recipies: QuerySet = Recipe.objects.filter(
+            author=self.request.user.id)
+        # pdb.set_trace(header="personalized")
+        context = super().get_context_data(**kwargs)
+        context['items'] = all_recipies
+        return context
+
+
 class ItemView(TemplateView):
     """один рецепт, детально"""
     template_name = "cook_house/templates/cook_house/base.html"
@@ -54,14 +67,49 @@ class ItemView(TemplateView):
 
 
 class CreateView(TemplateView):
-    template_name = "cook_house/add_edit_recipe.html"
+    template_name = "cook_house/add_recipe.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['form'] = RecipeForm()
         return context
 
+    @staticmethod
+    def return_Category(value: str) -> CategoryRecipe:
+        blank_id = 8
+        for i in CategoryRecipe.objects.all():
+            if i.get_title_display() == value:
+                return i
+            return CategoryRecipe.objects.filter(pk=blank_id).first()
+
+    def post(self, request, *args, **kwargs):
+        pdb.set_trace()
+        form = RecipeForm(self.request.POST)
+
+        if form.is_valid():
+            items = form.clean()
+            author_ = request.user
+            # pdb.set_trace(header="create")
+            Recipe.objects.create(
+                title=items['title'],
+                review=items['review'],
+                algorythm=items['algorythm'],
+                time_estimate=items['time_estimate'],
+                category=self.return_Category(items['category']),
+                preview=items['preview'],
+                author=author_
+            )
+            return HttpResponse("ok!")
+        else:
+            error_hint = ""
+            # pdb.set_trace(header="invalid")
+            form = self.form_class()
+            return render(request, self.template_name,
+                          {"form": form, "error_hint": error_hint})
+
+
 class RecipeViewRUD(View):
-    """Добавляем/редактируем рецепт """
+    """Посмотреть рецепт """
     template_name = "cook_house/recipe_edit.html"
 
     def get(self):
@@ -102,8 +150,6 @@ class RegUser(FormView):
             error_hint = ""
             # pdb.set_trace(header="invalid")
             form = self.form_class()
-            for i in form.errors:
-                print(i)
             return render(request, self.template_name,
                           {"form": form, "error_hint": error_hint})
 

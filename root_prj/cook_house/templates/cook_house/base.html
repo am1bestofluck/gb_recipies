@@ -15,7 +15,7 @@
     <nav class="header--base">
         <div class="header__item"><a href="#">about us</a></div>
         <div class="header__item"><a href="#">Master-classes </a></div>
-        <div class="header__item header__item--centered"><a href="#"> Horns and
+        <div class="header__item header__item--centered"><a href="{% url 'index' %}"> Horns and
             hooves</a></div>
         <div class="header__item"><a href="#">Gallery</a></div>
         <div class="header__item"><a href="#">Contacts </a></div>
@@ -28,7 +28,7 @@
     <div class="hello_block--buttons"><a href="{% url 'create_r' %}"
                                          class="add_recipe">Добавить
         рецепт!</a>
-    <a href="#" class="my_recipes">Мои рецепты</a></div>
+    <a href="{% url 'creations' %}" class="my_recipes">Мои рецепты</a></div>
     <div class="hello_block--info">Привет, {{ user.first_name.title }}
         {{user.last_name.title }}! <a
                 href="{% url 'logout' %}">Выйти?</a></div>

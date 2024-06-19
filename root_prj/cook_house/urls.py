@@ -1,5 +1,5 @@
 from .views import IndexView, CreateView, RecipeViewRUD, TestBase, RegUser, \
-    AuthUser,LogoutUser
+    AuthUser,LogoutUser,PersonOwnRecipies
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -12,6 +12,7 @@ urlpatterns = [
     path('create_r', CreateView.as_view(), name='create_r'),
     path('focus_r/<int:id>', RecipeViewRUD.as_view(), name='focus_r'),
     path('test_base', TestBase.as_view(), name="test_base"),
+    path('creations',PersonOwnRecipies.as_view(),name="creations"),
 ]
 
 

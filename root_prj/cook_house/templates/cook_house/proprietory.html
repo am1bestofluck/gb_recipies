@@ -1,0 +1,23 @@
+{% extends 'cook_house/base.html' %}
+{% block page_title %} Рога и копыта - главная! {% endblock %}
+{% block page_content %}
+{% load static %}
+{% if not items %}
+<div class="suggestion">Можно что-то добавить и уже потом любоваться?</div>
+{% else %}
+{% for o in items %}
+<div class="item--table">
+    <div class="itm--category">{{o.category}}</div>
+    <div class="itm"> {{ o.title }}</div>
+    <div class="itm--estimate">Минут: {{o.time_estimate}}</div>
+    <div class="itm--review">{{o.review}}</div>
+    <div class="itm--further"><a href="#">Подробнее</a></div>
+    <div class="itm--redact"><a href="#">Изменить</a></div>
+    <div class="itm--preview"><img href="{% static o.preview %}"
+                                   alt="some pic"></div>
+</div>
+
+
+{% endfor %}
+{% endif %}
+{% endblock %}
