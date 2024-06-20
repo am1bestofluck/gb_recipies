@@ -9,7 +9,7 @@
     <div class="itm"> {{ o.title }}</div>
     <div class="itm--estimate">Минут: {{o.time_estimate}}</div>
     <div class="itm--review">{{o.review}}</div>
-    <div class="itm--further"><a href="#">Подробнее</a></div>
+    <div class="itm--further"><a href="{% url 'specific' o.id %}">Подробнее</a></div>
     <div class="itm--preview"> <img href = "{% static o.preview %}" alt="some pic"></div>
 </div>
 

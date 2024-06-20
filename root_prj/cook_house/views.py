@@ -1,7 +1,7 @@
 import pdb
 
 from random import sample
-from django.http import HttpRequest,HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View, RedirectView
 from django.db.models import QuerySet, Max
@@ -108,18 +108,14 @@ class CreateView(TemplateView):
                           {"form": form, "error_hint": error_hint})
 
 
-class RecipeViewRUD(View):
+class RecipeViewRUD(TemplateView):
     """Посмотреть рецепт """
-    template_name = "cook_house/recipe_edit.html"
+    template_name = "cook_house/specific.html"
 
-    def get(self):
-        pass
-
-    def post(self):
-        pass
-
-    def delete(self):
-        pass
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['item'] = Recipe.objects.filter(pk=kwargs['id']).first()
+        return context
 
 
 class RegUser(FormView):

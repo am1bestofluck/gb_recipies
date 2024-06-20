@@ -82,9 +82,13 @@ class Recipe(models.Model):
     time_estimate = models.IntegerField(blank=False, default=5)
     category = models.ForeignKey('CategoryRecipe', on_delete=models.DO_NOTHING,
                                  default=1)
-    preview = models.ImageField(upload_to="flow/dishes_previews/", null=True, default=None)
+    preview = models.ImageField(upload_to="flow/dishes_previews/", null=True,
+                                default=None)
     author = models.ForeignKey(to=User,
                                on_delete=models.CASCADE, )
+
+    def get_link(self):
+        return f"specific/{self.pk}"
 
 
 # class
