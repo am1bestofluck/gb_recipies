@@ -6,7 +6,7 @@
 <form action="auth" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Submit">
+    <input type="submit" value="Подтвердить">
 </form>
 <div class="new_cook"><div class="new_cook--offer">Ещё не зарегистрированы?</div>
 <div class="new_cook--link"><a href="{% url 'new_cook' %}"> Создать аккаунт</a></div></div>{% endblock %}

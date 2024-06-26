@@ -1,3 +1,20 @@
 {% extends 'cook_house/base.html' %}
+{% block page_title %} Рога и копыта: {{ item.title }} {% endblock %}
+{% block page_content %}
+<div class="specific__title"> {{ item.title.title }}!</div>
+<div class="specific__review"> {{ item.review }}</div>
+<div class="detailed_view">
+    <div class="detailed_view--info">
+        <div class="detailed_view--info__time">
+            Время приготовления, минут: {{ item.time_estimate }}
+        </div>
+        <div class="detailed_view--info__cook_process">
+            {{ item.algorythm }}
 
-{% block page_content %} здесь детально о рецепте # {{ item.id }}! {% endblock %}
+        </div>
+    </div>
+    <div class="detailed_view--preview">
+        <img src="{{ MEDIA_URL }}/{{ item.preview}}" alt="dish preview">
+    </div>
+</div>
+{% endblock %}

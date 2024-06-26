@@ -108,6 +108,15 @@ class CreateView(TemplateView):
                           {"form": form, "error_hint": error_hint})
 
 
+class EditRecipeView(TemplateView):
+    template_name = "cook_house/update_recipe.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = RecipeForm()
+        pdb.set_trace(header="edit recipe")
+        return context
+
 class RecipeViewRUD(TemplateView):
     """Посмотреть рецепт """
     template_name = "cook_house/specific.html"
@@ -115,6 +124,7 @@ class RecipeViewRUD(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['item'] = Recipe.objects.filter(pk=kwargs['id']).first()
+        pdb.set_trace(header="extract data")
         return context
 
 

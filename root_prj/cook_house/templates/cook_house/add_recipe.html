@@ -12,6 +12,6 @@
 <form action="create_r" method="POST">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Добавить">
+    <input type="submit" value="{% block submit_button %} Добавить рецепт {% endblock %}">
 </form>
 {% endblock %}

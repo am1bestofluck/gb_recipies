@@ -10,11 +10,10 @@ urlpatterns = [
     path('logout', LogoutUser.as_view(), name="logout"),
     path('', IndexView.as_view(), name='index'),
     path('create_r', CreateView.as_view(), name='create_r'),
-    path('specifics/<int:id>', RecipeViewRUD.as_view(), name='specific'),
+    path('specifics/<int:id>', RecipeViewRUD.as_view(), name='specifics'),
     path('test_base', TestBase.as_view(), name="test_base"),
     path('creations', PersonOwnRecipies.as_view(), name="creations"),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)
