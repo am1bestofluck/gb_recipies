@@ -1,6 +1,6 @@
 {% extends 'cook_house/base.html' %}
 {% block header_panel %}{% if user.id != None %}
-    <div class="hello_block--buttons"><a href="{% url 'index' %}" class="add_recipe">Назад</a></div>
+    <div class="hello_block--buttons"><a href="{% url 'creations' %}" class="add_recipe">Назад</a></div>
     <div class="hello_block--info">Привет, {{ user.first_name.title }} {{user.last_name.title }}! <a
                 href="{% url 'logout' %}">Выйти?</a></div>
     {% else %} <a
@@ -9,7 +9,7 @@
 
 {% block page_content %}
 <div class="error_messages">{{ form.error_messages }}</div>
-<form action="create_r" method="POST">
+<form action="{% block  form_action %} {% url 'creations' %} {% endblock %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="{% block submit_button %} Добавить рецепт {% endblock %}">

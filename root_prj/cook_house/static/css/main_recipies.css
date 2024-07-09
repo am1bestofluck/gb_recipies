@@ -10,7 +10,7 @@
     padding-right: 50px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
 }
 
 .itm--preview {
@@ -22,3 +22,9 @@
     border: 2px solid white;
     border-radius: 5px;
 }
+
+
+.itm--picture {
+    max-width:33svw;
+    max-height:16svh;
+    }

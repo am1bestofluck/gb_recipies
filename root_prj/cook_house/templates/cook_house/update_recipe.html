@@ -1,3 +1,5 @@
-{% extends 'cook_house/base.html' %}
+{% extends 'cook_house/add_recipe.html' %}
 
+{% block page_title %} Изменить {{ dish_title }} {% endblock %}
+{% block  form_action %} update_recipe {% endblock %}
 {% block submit_button %} Обновить рецепт {% endblock %}

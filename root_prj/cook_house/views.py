@@ -75,16 +75,16 @@ class CreateView(TemplateView):
         return context
 
     @staticmethod
-    def return_Category(value: str) -> CategoryRecipe:
+    def return_category(value: str) -> CategoryRecipe.Categories:
         blank_id = 8
-        for i in CategoryRecipe.objects.all():
-            if i.get_title_display() == value:
-                return i
+        try:
+            return CategoryRecipe.objects.filter(title=value).first()
+        except ValueError:
             return CategoryRecipe.objects.filter(pk=blank_id).first()
 
     def post(self, request, *args, **kwargs):
-        pdb.set_trace()
-        form = RecipeForm(self.request.POST)
+        # pdb.set_trace()
+        form = RecipeForm(self.request.POST, self.request.FILES)
 
         if form.is_valid():
             items = form.clean()
@@ -95,11 +95,11 @@ class CreateView(TemplateView):
                 review=items['review'],
                 algorythm=items['algorythm'],
                 time_estimate=items['time_estimate'],
-                category=self.return_Category(items['category']),
+                category=self.return_category(items['category']),
                 preview=items['preview'],
                 author=author_
             )
-            return HttpResponse("ok!")
+            return redirect("creations")
         else:
             error_hint = ""
             # pdb.set_trace(header="invalid")
@@ -108,14 +108,40 @@ class CreateView(TemplateView):
                           {"form": form, "error_hint": error_hint})
 
 
-class EditRecipeView(TemplateView):
+class UpdateRecipeView(TemplateView):
     template_name = "cook_house/update_recipe.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = RecipeForm()
-        pdb.set_trace(header="edit recipe")
+
+        item: Recipe = Recipe.objects.filter(pk=context['id']).first()
+        # pdb.set_trace(header="дефолтные значения")
+        # pdb.set_trace(header="edit recipe")
+        default_values = {
+            "title": item.title,
+            "review": item.review,
+            "algorythm": item.algorythm,
+            "time_estimate": item.time_estimate,
+            "category": item.category,
+            "preview": item.preview,
+
+        }
+        context['form'] = RecipeForm(initial={'title': default_values['title'],
+                                              'review': default_values[
+                                                  'review'],
+                                              'algorythm': default_values[
+                                                  'algorythm'],
+                                              'time_estimate': default_values[
+                                                  'time_estimate'],
+                                              'preview': default_values[
+                                                  'preview'], })
+        context['dish_title'] = default_values['title']
         return context
+
+    def post(self):
+        form = RecipeForm(self.request.POST, self.request.FILES)
+        pdb.set_trace()
+
 
 class RecipeViewRUD(TemplateView):
     """Посмотреть рецепт """
@@ -124,7 +150,7 @@ class RecipeViewRUD(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['item'] = Recipe.objects.filter(pk=kwargs['id']).first()
-        pdb.set_trace(header="extract data")
+        # pdb.set_trace(header="extract data")
         return context
 
 
@@ -208,4 +234,14 @@ class LogoutUser(View):
 
     def get(self, request: HttpRequest, *args, **kwargs):
         logout(request)
+        return redirect(self.url)
+
+
+class DeleteRecipeView(View):
+    url = "creations"
+
+    def get(self, request, *args, **kwargs):
+        # pdb.set_trace()
+        item: QuerySet = Recipe.objects.filter(pk=kwargs['id'])[0]
+        item.delete()
         return redirect(self.url)

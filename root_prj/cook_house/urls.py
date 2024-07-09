@@ -1,5 +1,5 @@
 from .views import IndexView, CreateView, RecipeViewRUD, TestBase, RegUser, \
-    AuthUser, LogoutUser, PersonOwnRecipies
+    AuthUser, LogoutUser, PersonOwnRecipies,UpdateRecipeView,DeleteRecipeView
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -13,6 +13,8 @@ urlpatterns = [
     path('specifics/<int:id>', RecipeViewRUD.as_view(), name='specifics'),
     path('test_base', TestBase.as_view(), name="test_base"),
     path('creations', PersonOwnRecipies.as_view(), name="creations"),
+    path('update_recipe/<int:id>', UpdateRecipeView.as_view(), name="update_recipe"),
+    path('delete_recipe/<int:id>', DeleteRecipeView.as_view(), name="delete_recipe"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
