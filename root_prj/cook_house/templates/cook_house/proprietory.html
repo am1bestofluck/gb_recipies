@@ -12,9 +12,9 @@
     <div class="itm--estimate">Минут: {{o.time_estimate}}</div>
     <div class="itm--review">{{o.review}}</div>
     <div class="itm--further"><a href="{% url 'specifics' o.id  %}">Подробнее</a></div>
-    <div class="itm--redact"><a href="{% url 'update_recipe' o.id %}">Изменить</a></div>
-    <div class="itm--redact"><a href="{% url 'delete_recipe' o.id %}">Удалить</a></div>
-    <div class="itm--preview"><img src="{{ MEDIA_URL }}{{ o.preview }}" alt="dish preview"></div>
+    <div class="itm--redact"><a class="itm--redact" href="{% url 'update_recipe' o.id %}">Изменить</a></div>
+    <div class="itm--redact"><a class="itm--redact" href="{% url 'delete_recipe' o.id %}">Удалить</a></div>
+    <div class="itm--preview"><img class="itm--picture" src="{{ MEDIA_URL }}{{ o.preview }}" alt="dish preview"></div>
 </div>
 
 

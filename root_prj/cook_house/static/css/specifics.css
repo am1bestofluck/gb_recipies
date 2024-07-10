@@ -1,0 +1,8 @@
+.picture_single {
+    max-width:1080px;
+    max-height:720px;
+    min-width:270px;
+    min-height:180px;}
+
+.detailed_view--preview {
+    padding: 20px}

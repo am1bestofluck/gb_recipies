@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View, RedirectView
 from django.db.models import QuerySet, Max
 from django.views.generic.edit import FormView
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError,ObjectDoesNotExist
 from django.contrib.auth import authenticate, login, logout
 
 try:
@@ -77,10 +77,11 @@ class CreateView(TemplateView):
     @staticmethod
     def return_category(value: str) -> CategoryRecipe.Categories:
         blank_id = 8
+        # pdb.set_trace()
         try:
-            return CategoryRecipe.objects.filter(title=value).first()
-        except ValueError:
-            return CategoryRecipe.objects.filter(pk=blank_id).first()
+            return CategoryRecipe.objects.get(title=value)
+        except ObjectDoesNotExist:
+            return CategoryRecipe.objects.get(pk=blank_id)
 
     def post(self, request, *args, **kwargs):
         # pdb.set_trace()
@@ -115,8 +116,6 @@ class UpdateRecipeView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         item: Recipe = Recipe.objects.filter(pk=context['id']).first()
-        # pdb.set_trace(header="дефолтные значения")
-        # pdb.set_trace(header="edit recipe")
         default_values = {
             "title": item.title,
             "review": item.review,
@@ -137,10 +136,30 @@ class UpdateRecipeView(TemplateView):
                                                   'preview'], })
         context['dish_title'] = default_values['title']
         return context
+    @staticmethod
+    def return_category(value: str) -> CategoryRecipe.Categories:
+        blank_id = 8
+        # pdb.set_trace()
+        try:
+            return CategoryRecipe.objects.get(title=value)
+        except ObjectDoesNotExist:
+            return CategoryRecipe.objects.get(pk=blank_id)
 
-    def post(self):
-        form = RecipeForm(self.request.POST, self.request.FILES)
-        pdb.set_trace()
+    def post(self, request, *args, **kwargs):
+        form: RecipeForm = RecipeForm(self.request.POST, self.request.FILES)
+        if form.is_valid():
+            edited: Recipe = Recipe.objects.get(pk=kwargs['id'])
+            # pdb.set_trace()
+            edited.algorythm = form.cleaned_data['algorythm']
+            edited.category = self.return_category(form.cleaned_data['category'])
+            edited.preview = form.cleaned_data['preview']
+            edited.review = form.cleaned_data['review']
+            edited.time_estimate = form.cleaned_data['time_estimate']
+            edited.title = form.cleaned_data['title']
+            edited.save()
+            return redirect("creations")
+        else:
+            pdb.set_trace()
 
 
 class RecipeViewRUD(TemplateView):

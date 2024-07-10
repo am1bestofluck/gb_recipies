@@ -45,7 +45,8 @@ class RegUserForm(forms.Form):
         widget=forms.PasswordInput(attrs={'class': 'form_main'}))
 
     def validate(self):
-        pdb.set_trace(header="check items#reg")
+        pass
+        # pdb.set_trace(header="check items#reg")
 
 
 class AuthUserForm(forms.Form):

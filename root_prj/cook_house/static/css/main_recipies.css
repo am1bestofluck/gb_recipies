@@ -28,3 +28,14 @@
     max-width:33svw;
     max-height:16svh;
     }
+
+.itm--further, .itm--redact {
+    color:green;
+    font-size:20px;
+    display:block;
+    padding:10px;
+    }
+
+.itm--redact {
+    color:red;
+    }

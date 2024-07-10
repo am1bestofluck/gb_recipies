@@ -9,6 +9,8 @@
 a {
     text-decoration: none;
     background-color: transparent;
+    color:inherit;
+    font-size:inherit;
 }
 
 @font-face {

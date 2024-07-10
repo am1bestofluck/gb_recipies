@@ -1,4 +1,5 @@
 {% extends 'cook_house/base.html' %}
+{% load static %}
 {% block header_panel %}{% if user.id != None %}
     <div class="hello_block--buttons"><a href="{% url 'creations' %}" class="add_recipe">Назад</a></div>
     <div class="hello_block--info">Привет, {{ user.first_name.title }} {{user.last_name.title }}! <a
@@ -9,7 +10,7 @@
 
 {% block page_content %}
 <div class="error_messages">{{ form.error_messages }}</div>
-<form action="{% block  form_action %} {% url 'creations' %} {% endblock %}" method="POST" enctype="multipart/form-data">
+{% block form_header %} <form action="{% url 'create_r' %}" method="POST" enctype="multipart/form-data"> {% endblock %}
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="{% block submit_button %} Добавить рецепт {% endblock %}">
