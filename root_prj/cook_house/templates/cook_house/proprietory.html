@@ -1,0 +1,23 @@
+{% extends 'cook_house/main.html' %}
+{% block page_title %} Рога и копыта - Мои рецепты! {% endblock %}
+{% block page_content %}
+{% load static %}
+{% if not items %}
+<div class="suggestion">Можно что-то добавить и уже потом любоваться?</div>
+{% else %}
+{% for o in items %}
+<div class="item--table">
+    <div class="itm--category">{{o.category}}</div>
+    <div class="itm"> {{ o.title }}</div>
+    <div class="itm--estimate">Минут: {{o.time_estimate}}</div>
+    <div class="itm--review">{{o.review}}</div>
+    <div class="itm--further"><a href="{% url 'specifics' o.id  %}">Подробнее</a></div>
+    <div class="itm--redact"><a class="itm--redact" href="{% url 'update_recipe' o.id %}">Изменить</a></div>
+    <div class="itm--redact"><a class="itm--redact" href="{% url 'delete_recipe' o.id %}">Удалить</a></div>
+    <div class="itm--preview"><img class="itm--picture" src="{{ MEDIA_URL }}{{ o.preview }}" alt="dish preview"></div>
+</div>
+
+
+{% endfor %}
+{% endif %}
+{% endblock %}

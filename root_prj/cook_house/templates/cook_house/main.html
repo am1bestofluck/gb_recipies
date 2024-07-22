@@ -1,0 +1,19 @@
+{% extends 'cook_house/base.html' %}
+{% block page_title %} Рога и копыта - главная! {% endblock %}
+{% block page_content %}
+{% load static %}
+
+{% for o in items %}
+<div class="item--table">
+    <div class="itm--category">{{o.category}}</div>
+    <div class="itm"> {{ o.title }}</div>
+    <div class="itm--author"> Автор:{{ o.author.first_name.title }} {{ o.author.last_name.title }}</div>
+    <div class="itm--estimate">Время приготовления: {{o.time_estimate}}</div>
+    <div class="itm--review">Краткий обзор: {{o.review}}</div>
+    <div class="itm--further"><a href="{% url 'specifics' o.pk %}">Подробнее</a></div>
+    <div class="itm--preview"> <img src="{{ MEDIA_URL }}{{ o.preview }}" alt="dish preview" class ="itm--picture"></div>
+</div>
+
+
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main_recipies.css' %}">
+    {% block head_extend %} {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block page_title %} #todo {% endblock %} </title>
+</head>
+
+<body>
+<header>
+    <nav class="header--base">
+        <div class="header__item"><a href="#">about us</a></div>
+        <div class="header__item"><a href="#">Master-classes </a></div>
+        <div class="header__item header__item--centered"><a href="{% url 'index' %}"> Horns and
+            hooves</a></div>
+        <div class="header__item"><a href="#">Gallery</a></div>
+        <div class="header__item"><a href="#">Contacts </a></div>
+    </nav>
+</header>
+
+<div class="showcase_banner"></div>
+
+<section class="hello_block"> {% block header_panel %}{% if user.id != None %}
+    <div class="hello_block--buttons"><a href="{% url 'create_r' %}"
+                                         class="add_recipe">Добавить
+        рецепт!</a>
+    <a href="{% url 'creations' %}" class="my_recipes">Мои рецепты</a></div>
+    <div class="hello_block--info">Привет, {{ user.first_name.title }}
+        {{user.last_name.title }}! <a
+                href="{% url 'logout' %}">Выйти?</a></div>
+    {% else %}
+    <div class="hello_block--justified-right"><a
+            href=" {% url 'auth' %}"> Войти в аккаунт </a> {% endif %}
+    </div>
+    {% endblock %}
+</section>
+<section class="main"> {% block page_content %} #todo {% endblock %}
+</section>
+<footer>
+    <div class="footer--subscribe">
+        <div class="subscribe--hint"></div>
+        <div class="subscribe--input">
+            <div class="form"><input type="text" name="" id=""></div>
+            <input type="submit" value=""></div>
+    </div>
+    <div class="footer--info">
+        <div class="footer--cell info--logo"><img class="info--logo_pic"
+                                                  src="{% static 'img/logo.svg' %}"
+                                                  alt="лого рогов и копыт :( :)">
+        </div>
+        <div class="footer--cell footer--cell_allign_right">Наш телефон<br>123-456-789
+        </div>
+        <div class="footer--cell footer--cell_allign_right">
+            <span class="path--hint">Где нас найти?<br></span>
+            <span class="path--response">Улица Путь Кшарашкина, 2/3</span>
+        </div>
+    </div>
+    <div class="footer--dev_info">
+        <div class="dev_info--item">ЗАО "Рогов И Копытина"</div>
+        <div class="dev_info--item">Powered by FreeTimeEnjoyerDev</div>
+    </div>
+</footer>
+</body>
+
+</html>

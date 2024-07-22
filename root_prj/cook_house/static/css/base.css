@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: rgb(51, 42, 42);
+    color: wheat;
+}
+
+a {
+    text-decoration: none;
+    background-color: transparent;
+    color:inherit;
+    font-size:inherit;
+}
+
+@font-face {
+    font-family: "mood";
+    src: url("../fonts/Night_Morning.otf");
+    font-size: 50px;
+}
+
+.header--base {
+    font-family: "mood";
+    padding-top: 35px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    text-transform: capitalize;
+}
+
+.header__item {
+    font-family: inherit;
+    background-color: transparent;
+}
+
+.header__item--centered {
+    font-weight: 600;
+    font-size: 35px;
+    color: blanchedalmond;
+}
+
+.showcase_banner {
+    width: 100%;
+    min-height: 200px;
+    background-repeat: no-repeat;
+    background-position: 0%;
+    background-size: cover;
+    background-image: url("../img/diemfkdie.webp");
+}
+
+.hello_block {
+    display: flex;
+    justify-content: space-between;
+    min-height: 50px;
+    padding-left: 1svw;
+    padding-right: 1svw;
+}
+
+.footer--dev_info {
+    padding-left: 3svw;
+    padding-right: 3svw;
+    padding-top: 30px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.dev_info--item {
+    color: #878177;
+}
+
+.footer--info {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.info--logo {
+    grid-row: 1/-1;
+    display: flex;
+    justify-content: center;
+}
+
+.footer--cell_allign_right {
+    justify-self: right;
+    text-align: right;
+    padding-right: 1svw;
+}
+
+.hello_block--justified-right {
+    width: 100%;
+    text-align: right;
+}
+
+.hello_block--buttons {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}

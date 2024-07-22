@@ -1,0 +1,11 @@
+{% extends 'cook_house/base.html' %}
+{% block page_title %} Регистрация {% endblock %}
+{% block page_content %}
+{% load static %}
+<div class="error_messages">{{ error_messages }}</div>
+<form action="new_cook" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Подтвердить">
+</form>
+{% endblock %}

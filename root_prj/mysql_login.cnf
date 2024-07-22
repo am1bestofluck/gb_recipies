@@ -1,0 +1,6 @@
+[client]
+database = cook_house
+user = root
+password = AccountsandRoles1!
+default-character-set = utf8
+port = 3306
