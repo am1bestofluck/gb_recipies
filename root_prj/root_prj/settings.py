@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 from django.conf import settings
 from dotenv import dotenv_values, load_dotenv
@@ -23,8 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 from pathlib import Path
 
-load_dotenv('root_prj/.env')
-
+os.chdir("root_prj")
+load_dotenv()
+os.chdir("..")
 SECRET_KEY = dotenv_values()['SECRET_KEY']
 
 DEBUG = True
