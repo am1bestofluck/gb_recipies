@@ -29,7 +29,7 @@ try:
     os.chdir("root_prj")
 except FileNotFoundError:
     print(Path.cwd())
-    raise Exception
+    raise Exception(f"{Path.cwd()=}")
 load_dotenv()
 os.chdir("..")
 try:
