@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 from pathlib import Path
 
-load_dotenv('.env')
+load_dotenv('root_prj/.env')
 
 SECRET_KEY = dotenv_values()['SECRET_KEY']
 
