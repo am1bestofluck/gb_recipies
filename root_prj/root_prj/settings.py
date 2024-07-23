@@ -24,7 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 from pathlib import Path
 # import pdb
 # pdb.set_trace()
-os.chdir("root_prj")
+try:
+    os.chdir("root_prj")
+except FileNotFoundError:
+    print(Path.cwd())
+    raise Exception
 load_dotenv()
 os.chdir("..")
 try:
