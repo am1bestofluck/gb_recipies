@@ -27,8 +27,10 @@ from pathlib import Path
 os.chdir("root_prj")
 load_dotenv()
 os.chdir("..")
-SECRET_KEY = dotenv_values()['SECRET_KEY']
-
+try:
+    SECRET_KEY = dotenv_values()['SECRET_KEY']
+except KeyError:
+    SECRET_KEY = "django-insecure-v)h9$a1byzsa&2l+6u(sbj6jp5$_6j9&7vd7xklbpy_*zdaufz"
 DEBUG = True
 
 ALLOWED_HOSTS = [
