@@ -22,16 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 from pathlib import Path
-# import pdb
-# pdb.set_trace()
-raise ValueError(Path.cwd())
-try:
-    os.chdir("root_prj")
-except FileNotFoundError:
-    print(Path.cwd())
-    raise Exception(f"{Path.cwd()=}")
-load_dotenv()
-os.chdir("..")
+import getpass
+if getpass.getuser()=="am1bestofluck":
+    load_dotenv('/home/am1bestofluck/gb_recipies/root_prj/root_prj/.env')
+
 try:
     SECRET_KEY = dotenv_values()['SECRET_KEY']
 except KeyError:
