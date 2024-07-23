@@ -22,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 from pathlib import Path
-
+import pdb
+pdb.set_trace()
 os.chdir("root_prj")
 load_dotenv()
 os.chdir("..")
