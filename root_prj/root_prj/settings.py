@@ -23,13 +23,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 from pathlib import Path
 import getpass
-if getpass.getuser()=="am1bestofluck":
-    load_dotenv('/home/am1bestofluck/gb_recipies/root_prj/root_prj/.env')
 
-try:
-    SECRET_KEY = dotenv_values()['SECRET_KEY']
-except KeyError:
-    SECRET_KEY = "django-insecure-v)h9$a1byzsa&2l+6u(sbj6jp5$_6j9&7vd7xklbpy_*zdaufz"
+paths_fork = {
+    'am1bestofluck': {
+        'secret': '/home/am1bestofluck/gb_recipies/root_prj/root_prj/.env',
+
+    },
+    'Contab3-14': {
+        'secret': r'C:\reps\gb_recipies\root_prj\root_prj\.env',
+    }
+}
+load_dotenv(paths_fork[getpass.getuser()]['secret'])
+
+SECRET_KEY = dotenv_values()['SECRET_KEY']
+
 DEBUG = True
 
 ALLOWED_HOSTS = [
@@ -115,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
