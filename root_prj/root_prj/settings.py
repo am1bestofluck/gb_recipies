@@ -34,7 +34,7 @@ paths_fork = {
     }
 }
 load_dotenv(paths_fork[getpass.getuser()]['secret'])
-raise ValueError(f"{dotenv_values=}")
+raise ValueError(f"{dotenv_values()=}")
 try:
     SECRET_KEY = dotenv_values()['SECRET_KEY']
 except KeyError:
