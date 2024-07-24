@@ -38,7 +38,7 @@ raise ValueError(paths_fork[getpass.getuser()]['secret'])
 try:
     SECRET_KEY = dotenv_values()['SECRET_KEY']
 except KeyError:
-    raise KeyError(getpass.getuser())
+    SECRET_KEY = 'django-insecure-v)h9$a1byzsa&2l+6u(sbj6jp5$_6j9&7vd7xklbpy_*zdaufz'
 DEBUG = True
 
 ALLOWED_HOSTS = [
