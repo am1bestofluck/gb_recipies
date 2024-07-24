@@ -35,8 +35,10 @@ paths_fork = {
 }
 load_dotenv(paths_fork[getpass.getuser()]['secret'])
 
-SECRET_KEY = dotenv_values()['SECRET_KEY']
-
+try:
+    SECRET_KEY = dotenv_values()['SECRET_KEY']
+except KeyError:
+    raise KeyError(getpass.getuser())
 DEBUG = True
 
 ALLOWED_HOSTS = [
