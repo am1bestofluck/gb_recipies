@@ -34,11 +34,11 @@ paths_fork = {
     }
 }
 load_dotenv(paths_fork[getpass.getuser()]['secret'])
-raise ValueError(paths_fork[getpass.getuser()]['secret'])
+raise ValueError(f"{dotenv_values=}")
 try:
     SECRET_KEY = dotenv_values()['SECRET_KEY']
 except KeyError:
-    raise ValueError(f"{dotenv_values=}")
+
     SECRET_KEY = 'django-insecure-v)h9$a1byzsa&2l+6u(sbj6jp5$_6j9&7vd7xklbpy_*zdaufz'
 DEBUG = True
 
